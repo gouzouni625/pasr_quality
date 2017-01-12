@@ -1,0 +1,6 @@
+{
+  "text2wfreqPath": "cmusphinx/cmuclmtk/installation/bin/text2wfreq",
+  "wfreq2vocabPath": "cmusphinx/cmuclmtk/installation/bin/wfreq2vocab",
+  "text2idngramPath": "cmusphinx/cmuclmtk/installation/bin/text2idngram",
+  "idngram2lmPath": "cmusphinx/cmuclmtk/installation/bin/idngram2lm"
+}

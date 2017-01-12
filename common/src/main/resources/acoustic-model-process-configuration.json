@@ -1,0 +1,6 @@
+{
+  "sphinxFePath": "cmusphinx/sphinxbase/installation/bin/sphinx_fe",
+  "bwPath": "cmusphinx/sphinxtrain/installation/libexec/sphinxtrain/bw",
+  "mllrSolvePath": "cmusphinx/sphinxtrain/installation/libexec/sphinxtrain/mllr_solve",
+  "mapAdaptPath": "cmusphinx/sphinxtrain/installation/libexec/sphinxtrain/map_adapt"
+}
