@@ -76,6 +76,7 @@ public class QualityMeasurer {
     ) throws IOException, InterruptedException {
         if (adaptLanguageModel) {
             asrConfiguration.setLanguageModelPath(createLanguageModel());
+            asrConfiguration.setDictionaryPath(createDictionary());
         }
 
         if (adaptAcousticModel) {
@@ -114,6 +115,34 @@ public class QualityMeasurer {
         ).startAndWaitFor();
 
         return languageModelOutputFile.toPath();
+    }
+
+    private Path createDictionary() throws IOException {
+        File dictionaryDirectory = new File(outputDirectory, "dictionary");
+        if(!dictionaryDirectory.exists()) {
+            dictionaryDirectory.mkdir();
+        }
+
+        File dictionaryFile = new File(dictionaryDirectory, "dictionary.dict");
+
+        List<WordSequence> wordSequenceList = new ArrayList<>();
+        for (Sample sample : testingSamples) {
+            wordSequenceList.add(new WordSequence(sample.getContent()));
+        }
+
+        Corpus corpus = new Corpus(wordSequenceList);
+
+        Dictionary defaultDictionary = Dictionary.createFromStream(
+                new FileInputStream(asrConfiguration.getDictionaryPath().toString())
+        );
+
+        Dictionary dictionary = corpus.process(defaultDictionary);
+
+        FileOutputStream fileOutputStream = new FileOutputStream(dictionaryFile);
+        dictionary.exportToStream(fileOutputStream);
+        fileOutputStream.close();
+
+        return dictionaryFile.toPath();
     }
 
     private Path createAcousticModel() throws IOException, InterruptedException {
